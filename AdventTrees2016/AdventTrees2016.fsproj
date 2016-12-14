@@ -62,15 +62,15 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsXaml.Wpf">
-      <HintPath>..\packages\FsXaml.Wpf.2.1.0\lib\net45\FsXaml.Wpf.dll</HintPath>
+      <HintPath>..\packages\FsXaml.Wpf.2.2.0\lib\net45\FsXaml.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsXaml.Wpf.Blend">
-      <HintPath>..\packages\FsXaml.Wpf.Blend.2.1.0\lib\net45\FsXaml.Wpf.Blend.dll</HintPath>
+      <HintPath>..\packages\FsXaml.Wpf.Blend.2.2.0\lib\net45\FsXaml.Wpf.Blend.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsXaml.Wpf.TypeProvider">
-      <HintPath>..\packages\FsXaml.Wpf.2.1.0\lib\net45\FsXaml.Wpf.TypeProvider.dll</HintPath>
+      <HintPath>..\packages\FsXaml.Wpf.2.2.0\lib\net45\FsXaml.Wpf.TypeProvider.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Gjallarhorn">
@@ -85,6 +85,10 @@
       <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.0.0.7-beta\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -95,7 +99,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />

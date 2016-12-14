@@ -4,8 +4,6 @@ open Gjallarhorn
 open Gjallarhorn.Bindable
 
 module Program =
-    // A message specific to a Tree (instead of the main message type)
-    type TreeMessage = | Decorate
 
     // Create binding for a single tree.  This will output Decorate messages
     let treeComponent source (model : ISignal<Tree>) =
@@ -18,16 +16,15 @@ module Program =
         ]
 
     // Create binding for entire application.  This will output all of our messages.
-    let forestComponent source (model : ISignal<Forest>) = 
-            
-        [
-            BindingCollection.toView source "Forest" model treeComponent 
-            |> Observable.map (snd >> DecorateTree)
+    let forestComponent source (model : ISignal<Forest>) =             
+        // Bind our collection to "Forest"
+        let forest = BindingCollection.toView source "Forest" model treeComponent             
 
-            source 
-            |> Binding.createMessageParam "Add" id // The converter will return: Location option
-            |> Observable.filterSome // Filter out any None
-            |> Observable.map Add // Convert to our message
+        [
+            // Map Decorate messages in the treeComponent to UpdateTree messages
+            forest |> Observable.map UpdateTree
+            // Create a command that routes to Add messages
+            source |> Binding.createMessageParam "Add" Add
         ]
 
     // Handle pruning of the forest - 

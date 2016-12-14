@@ -11,6 +11,7 @@ open TreeLogic.Model
 type MainWindow = XAML<"MainWindow.xaml"> 
 
 module internal MouseConverters =
+    // Create a converter from mouse clicks on a Canvas to Some(location), and clicks elsewhere to None
     let locationConverter (args : MouseEventArgs) =
         match args.OriginalSource with
         | :? Canvas ->
