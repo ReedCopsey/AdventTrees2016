@@ -13,6 +13,7 @@ module Program =
         [
             // Create a command that turns into the Decorate message
             source |> Binding.createMessage "Decorate" Decorate 
+            source |> Binding.createMessage "Light" Light
         ]
 
     // Create binding for entire application.  This will output all of our messages.
