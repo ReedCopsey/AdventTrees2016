@@ -56,7 +56,6 @@
   <ItemGroup>
     <Resource Include="MainWindow.xaml" />
     <Compile Include="View.fs" />
-    <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
   </ItemGroup>
@@ -74,15 +73,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Gjallarhorn">
-      <HintPath>..\packages\Gjallarhorn.0.0.7-beta\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Gjallarhorn.dll</HintPath>
+      <HintPath>..\packages\Gjallarhorn.0.0.8-beta\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Gjallarhorn.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Gjallarhorn.Bindable">
-      <HintPath>..\packages\Gjallarhorn.Bindable.0.0.7-beta\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Gjallarhorn.Bindable.dll</HintPath>
+      <HintPath>..\packages\Gjallarhorn.Bindable.0.0.8-beta\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Gjallarhorn.Bindable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Gjallarhorn.Bindable.Wpf">
-      <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.0.0.7-beta\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
+      <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.0.0.8-beta\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions">

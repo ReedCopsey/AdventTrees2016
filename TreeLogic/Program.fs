@@ -29,24 +29,31 @@ module Program =
 
     // Handle pruning of the forest - 
     // Once per second, send a prune message to remove a tree if there are more than max
-    let rec pruneForever max (state : State<_,_>) =
+    let rec pruneForever max update =
         async {
-            do! Async.Sleep 1000
+            do! Async.Sleep 500
                 
-            Prune max
-            |> state.Update 
-            |> ignore
+            Prune max |> update
 
-            do! pruneForever max state
+            do! pruneForever max update
         }
     
     let application = 
-        // Create our state
-        let state = new State<_,_>(Forest.empty, Forest.update) 
+        // Create our forest, wrapped in a mutable with an atomic update function
+        let forest = new AsyncMutable<_>(Forest.empty)
 
-        // Prune it in the background asynchronously
-        pruneForever 10 state |> Async.Start 
+        // Create our 3 functions for the application framework
 
+        // Start with the function to create our model (as an ISignal<'a>)
+        let createModel () : ISignal<_> = forest :> _
+
+        // Create a function that updates our state given a message
+        let update (msg : ForestMessage) : unit = Forest.update msg |> forest.Update |> ignore
+
+        // An init function that occurs once everything's created, but before it starts
+        let init () : unit = 
+            // Start prune loop in the background asynchronously
+            pruneForever 10 update |> Async.Start 
 
         // Start our application
-        Framework.application (fun _ -> state :> _) ignore (state.Update >> ignore) forestComponent 
+        Framework.application createModel init update forestComponent 

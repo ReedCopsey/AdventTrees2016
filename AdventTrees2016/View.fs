@@ -1,14 +1,12 @@
 ﻿namespace Views
 
+open System
 open System.Windows
 open System.Windows.Controls
 open System.Windows.Input
 
 open FsXaml
-
 open TreeLogic.Model
-
-type MainWindow = XAML<"MainWindow.xaml"> 
 
 module internal MouseConverters =
     // Create a converter from mouse clicks on a Canvas to Some(location), and clicks elsewhere to None
@@ -20,4 +18,14 @@ module internal MouseConverters =
             Some { X = pt.X; Y = pt.Y }
         | _ -> None
 
+// Create our converter from MouseEventArgs -> Location
 type LocationConverter() = inherit EventArgsConverter<MouseEventArgs, Location option>(MouseConverters.locationConverter, None)
+// Create our Window
+type MainWindow = XAML<"MainWindow.xaml"> 
+
+module Main =    
+    [<STAThread>]
+    [<EntryPoint>]
+    let main _ =  
+        // Run using the WPF wrappers around the basic application framework    
+        Gjallarhorn.Wpf.Framework.runApplication System.Windows.Application MainWindow Program.application

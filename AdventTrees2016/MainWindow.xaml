@@ -13,6 +13,33 @@
     <Window.Resources>
         <local:LocationConverter x:Key="locationConverter" />
         <fsx:BooleanToVisibilityConverter x:Key="boolToVis" />
+        <DataTemplate x:Key="TreeTemplate">
+            <Canvas>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <fsxb:EventToCommand Command="{Binding Decorate}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Path DataContext="{Binding Tree}" Fill="DarkGreen" Stroke="DarkGreen" StrokeThickness="1" Data="M 0 -50 L -15 40 L -2 40 L -2 50 L 2 50 L 2 40 L 15 40 Z" RenderTransformOrigin="0.5,0.5" >
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="0.15" ScaleY="0.1" />
+                            <ScaleTransform ScaleX="{Binding Height}" ScaleY="{Binding Height}" />
+                            <TranslateTransform X="{Binding Position.X}" Y ="{Binding Position.Y}"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path DataContext="{Binding Tree}" Visibility="{Binding Decorated, Converter={StaticResource boolToVis}}" Fill="Red" Stroke="Red" StrokeThickness="4" Data="M -6 -30 L 6 -28 M -12 0 L 12 3 M -16 30 L 16 34" RenderTransformOrigin="0.5,0.5" >
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="0.15" ScaleY="0.1" />
+                            <ScaleTransform ScaleX="{Binding Height}" ScaleY="{Binding Height}" />
+                            <TranslateTransform X="{Binding Position.X}" Y ="{Binding Position.Y}"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+            </Canvas>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -21,14 +48,13 @@
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center">Click to add a Tree - Click on a tree to decorate it.</TextBlock>
         <ItemsControl 
-            Grid.Row="1" 
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch" 
+            Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
             ItemsSource="{Binding Forest}" 
+            ItemTemplate="{StaticResource TreeTemplate}"
             >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray" >
+                    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray" ClipToBounds="True" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                 <fsxb:EventToCommand Command="{Binding Add}" FilterOptionEventArgs="True" EventArgsConverter="{StaticResource locationConverter}"  />
@@ -37,35 +63,6 @@
                     </Canvas>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Canvas>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <fsxb:EventToCommand Command="{Binding Decorate}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Path DataContext="{Binding Tree}" Fill="DarkGreen" Stroke="DarkGreen" StrokeThickness="1" Data="M 0 -50 L -15 40 L -2 40 L -2 50 L 2 50 L 2 40 L 15 40 Z" RenderTransformOrigin="0.5,0.5" >
-                            <Path.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="0.15" ScaleY="0.1" />
-                                    <ScaleTransform ScaleX="{Binding Height}" ScaleY="{Binding Height}" />
-                                    <TranslateTransform X="{Binding Position.X}" Y ="{Binding Position.Y}"/>
-                                </TransformGroup>
-                            </Path.RenderTransform>
-                        </Path>
-                        <Path DataContext="{Binding Tree}" Visibility="{Binding Decorated, Converter={StaticResource boolToVis}}" Fill="Red" Stroke="Red" StrokeThickness="4" Data="M -6 -30 L 6 -28 M -12 0 L 12 3 M -16 30 L 16 34" RenderTransformOrigin="0.5,0.5" >
-                            <Path.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="0.15" ScaleY="0.1" />
-                                    <ScaleTransform ScaleX="{Binding Height}" ScaleY="{Binding Height}" />
-                                    <TranslateTransform X="{Binding Position.X}" Y ="{Binding Position.Y}"/>
-                                </TransformGroup>
-                            </Path.RenderTransform>
-                        </Path>
-                    </Canvas>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
 </Window>
