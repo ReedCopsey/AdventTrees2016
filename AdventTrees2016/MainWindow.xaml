@@ -6,7 +6,7 @@
         xmlns:fsxb="clr-namespace:FsXaml;assembly=FsXaml.Wpf.Blend"        
         xmlns:local="clr-namespace:Views;assembly=AdventTrees2016"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-        Title="FsAdvent 2015 - Decorate Some Trees!" 
+        Title="FsAdvent 2016 - Decorate Some Trees!" 
         Name="Win"
         Height="500" 
         Width="500">
