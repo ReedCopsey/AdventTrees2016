@@ -26,17 +26,6 @@ module Program =
             // Create a command that routes to Add messages
             source |> Binding.createMessageParam "Add" Add
         ]
-
-    // Handle pruning of the forest - 
-    // Once per second, send a prune message to remove a tree if there are more than max
-    let rec pruneForever max update =
-        async {
-            do! Async.Sleep 500
-                
-            Prune max |> update
-
-            do! pruneForever max update
-        }
     
     let application = 
         // Create our forest, wrapped in a mutable with an atomic update function
@@ -48,10 +37,23 @@ module Program =
         let createModel () : ISignal<_> = forest :> _
 
         // Create a function that updates our state given a message
+        // Note that we're just taking the message, passing it directly to our model's update function,
+        // then using that to update our core "Mutable" type.
         let update (msg : ForestMessage) : unit = Forest.update msg |> forest.Update |> ignore
 
         // An init function that occurs once everything's created, but before it starts
         let init () : unit = 
+            // Handle pruning of the forest - 
+            // Once per second, send a prune message to remove a tree if there are more than max
+            let rec pruneForever max update =
+                async {
+                    do! Async.Sleep 500
+                
+                    Prune max |> update
+
+                    do! pruneForever max update
+                }
+    
             // Start prune loop in the background asynchronously
             pruneForever 10 update |> Async.Start 
 
