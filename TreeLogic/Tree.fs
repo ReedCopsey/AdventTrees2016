@@ -13,18 +13,21 @@ type TreeMessage = | Decorate | Light | Blink
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module Tree =
     let private rnd = System.Random()
-    let private makeHeight () = 8.0 + rnd.NextDouble() * 4.0
-
+    let private makeHeight () = 8.0 + rnd.NextDouble() * 8.0
+ 
     let create location = 
         { Position = location ; Height = makeHeight () ; Decorated = false ; Lights = false ; Lit = false }
 
     let blink tree = 
         match tree.Lights with 
-        | true  -> { tree with Lit = not tree.Lit} 
+        | true  -> 
+            if rnd.NextDouble() < 0.5 
+            then { tree with Lit = not tree.Lit}
+            else tree
         | false -> { tree with Lit = false}
 
     let update msg tree =
         match msg with
         | Decorate -> { tree with Decorated = not tree.Decorated }
         | Light    -> { tree with Lights = not tree.Lights }
-        | Blink  -> tree |> blink
+        | Blink    -> tree |> blink

@@ -56,11 +56,12 @@ module Program =
                 }
     
             // Start prune loop in the background asynchronously
-            pruneForever 10 update |> Async.Start 
+            pruneForever 100 update |> Async.Start 
 
+            // blinking lights
             let rec blinkForever update =
                 async {
-                    do! Async.Sleep 500
+                    do! Async.Sleep 100
                     BlinkLights |> update
                     do! blinkForever update
                 }
