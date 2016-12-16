@@ -10,6 +10,7 @@ type ForestMessage =
     | Add of Location // Add new tree at a location
     | UpdateTree of msg : TreeMessage * tree : Tree // Update an existing tree
     | Prune of maxTrees : int  // Prune the trees
+    | BlinkLights
 
 // Module with allowed operations on a forest
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
@@ -36,3 +37,4 @@ module Forest =
             | Add(location)         -> Tree.create location :: forest    
             | UpdateTree(msg, tree) -> Tree.update msg tree :: List.except [ tree ] forest
             | Prune(maxTrees)       -> prune maxTrees forest
+            | BlinkLights         -> forest |> List.map (fun tree -> Tree.update Blink tree)

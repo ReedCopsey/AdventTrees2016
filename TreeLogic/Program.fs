@@ -58,5 +58,16 @@ module Program =
             // Start prune loop in the background asynchronously
             pruneForever 10 update |> Async.Start 
 
+            let rec blinkForever update =
+                async {
+                    do! Async.Sleep 500
+                    BlinkLights |> update
+                    do! blinkForever update
+                }
+    
+            // Start prune loop in the background asynchronously
+            blinkForever update |> Async.Start 
+
+
         // Start our application
         Framework.application createModel init update forestComponent 
