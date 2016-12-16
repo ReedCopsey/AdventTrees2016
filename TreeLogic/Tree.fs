@@ -20,5 +20,5 @@ module Tree =
 
     let update msg tree =
         match msg with
-        | Decorate -> { tree with Decorated = true }
-        | Light -> { tree with Lit = true }
+        | Decorate -> { tree with Decorated = not tree.Decorated }
+        | Light    -> { tree with Lit = not tree.Lit }
