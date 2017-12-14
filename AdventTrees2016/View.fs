@@ -28,5 +28,7 @@ module Main =
     [<EntryPoint>]
     let main _ =  
         // Run using the WPF wrappers around the basic application framework    
-        Gjallarhorn.Wpf.Framework.RunApplication (System.Windows.Application, MainWindow, Program.application)
+        let nav = Gjallarhorn.Wpf.Navigation.singleView System.Windows.Application MainWindow
+        let app = Program.application nav.Navigate
+        Gjallarhorn.Wpf.Framework.RunApplication<Forest,unit,ForestMessage> (nav, app)
         0

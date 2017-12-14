@@ -1,7 +1,5 @@
 ﻿namespace TreeLogic.Model
 
-open System.Runtime.InteropServices
-
 // Our main forest model
 type Forest = Tree list
 
@@ -12,7 +10,6 @@ type ForestMessage =
     | Prune of maxTrees : int  // Prune the trees
 
 // Module with allowed operations on a forest
-[<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module Forest =
     let private rnd = System.Random()
 

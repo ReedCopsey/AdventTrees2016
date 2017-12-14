@@ -76,10 +76,10 @@
       <HintPath>..\packages\Gjallarhorn.1.1.0\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.dll</HintPath>
     </Reference>
     <Reference Include="Gjallarhorn.Bindable">
-      <HintPath>..\packages\Gjallarhorn.Bindable.1.0.0-beta4\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.Bindable.dll</HintPath>
+      <HintPath>..\packages\Gjallarhorn.Bindable.1.0.0-beta5\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.Bindable.dll</HintPath>
     </Reference>
     <Reference Include="Gjallarhorn.Bindable.Wpf">
-      <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.1.0.0-beta4\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
+      <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.1.0.0-beta5\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
