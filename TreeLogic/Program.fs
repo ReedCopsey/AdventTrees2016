@@ -1,66 +1,58 @@
 ﻿namespace TreeLogic.Model
 
-open Gjallarhorn
 open Gjallarhorn.Bindable
+open Gjallarhorn.Bindable.Framework
 
 module Program =
 
-    // Create binding for a single tree.  This will output Decorate messages
-    let treeComponent = 
-        (fun source (model : ISignal<Tree>) ->
-            // Bind the tree itself to the view
-            model |> Bind.Explicit.oneWay source "Tree"
+    // "VM" types can be used in XAML designer, and allow simplified component construction
+    type TreeVM =
+        {
+            Tree     : Tree
+            Decorate : VmCmd<TreeMessage>
+            Light    : VmCmd<TreeMessage>
+        }
+    let treeDesign = { Tree = { Position = { X = 0.0 ; Y = 0.0 } ; Height = 1.0 ; Decorated = true ; Lit = true } ; Decorate = Vm.cmd Decorate ; Light = Vm.cmd Light }
 
-            [
-                // Create a command that turns into the Decorate message
-                source |> Bind.Explicit.createMessageCommand "Decorate" Decorate 
-                source |> Bind.Explicit.createMessageCommand "Light" Light
-            ])
-        |> Component.fromExplicit
+    type ForestVM =
+        {
+            Forest     : Forest
+            Add        : VmCmd<ForestMessage>            
+        }
+    let forestDesign = { Forest = Forest.empty ; Add = Vm.cmd (Add { X = 0.0 ; Y = 0.0 }) }
+
+    // Create binding for a single tree.  This will output Decorate and Light messages
+    let treeComponent =
+        Component.create<Tree,unit,TreeMessage> [
+            <@ treeDesign.Tree @>     |> Bind.oneWay id
+            <@ treeDesign.Decorate @> |> Bind.cmd
+            <@ treeDesign.Light @>    |> Bind.cmd
+        ]
 
     // Create binding for entire application.  This will output all of our messages.
-    let forestComponent = 
-        (fun source (model : ISignal<Forest>) ->
-            // Bind our collection to "Forest"
-            let forest = Bind.Collections.oneWay source "Forest" model treeComponent
-
-            [
-                // Map Decorate messages in the treeComponent to UpdateTree messages
-                forest |> Observable.map UpdateTree
-                // Create a command that routes to Add messages
-                source |> Bind.Explicit.createMessageParam "Add" Add
-            ])
-        |> Component.fromExplicit
+    let forestComponent =
+        Component.create<Forest,unit,ForestMessage> [
+            <@ forestDesign.Forest @> |> Bind.collection id treeComponent UpdateTree
+            <@ forestDesign.Add @>    |> Bind.cmdParam Add
+        ]
     
-    let application = 
-        // Create our forest, wrapped in a mutable with an atomic update function
-        let forest = new AsyncMutable<_>(Forest.empty)
-
-        // Create our 3 functions for the application framework
-
-        // Start with the function to create our model (as an ISignal<'a>)
-        let createModel () : ISignal<_> = forest :> _
-
-        // Create a function that updates our state given a message
-        // Note that we're just taking the message, passing it directly to our model's update function,
-        // then using that to update our core "Mutable" type.
-        let update (msg : ForestMessage) : unit = Forest.update msg |> forest.Update |> ignore
-
-        // An init function that occurs once everything's created, but before it starts
-        let init () : unit = 
-            // Handle pruning of the forest - 
-            // Once per second, send a prune message to remove a tree if there are more than max
-            let rec pruneForever max update =
-                async {
-                    do! Async.Sleep 500
-                
-                    Prune max |> update
-
-                    do! pruneForever max update
-                }
+    let pruneHandler (dispatch : Dispatch<_>) token =        
+        // Handle pruning of the forest - 
+        // Twice per second, send a prune message to remove a tree if there are more than max
+        let rec pruneForever max =
+            async {
+                do! Async.Sleep 500                
+                Prune max |> dispatch
+                return! pruneForever max 
+            }
     
-            // Start prune loop in the background asynchronously
-            pruneForever 10 update |> Async.Start 
+        // Start prune loop in the background asynchronously
+        Async.Start(pruneForever 10, token)
 
+    let application nav =       
+        // Start pruning "loop"
+        let prune = new Executor<_,_>(pruneHandler)
+        prune.Start()
         // Start our application
-        Framework.Framework.application createModel init update forestComponent 
+        Framework.application Forest.empty Forest.update forestComponent nav
+        |> Framework.withDispatcher prune
