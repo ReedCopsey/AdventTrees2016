@@ -6,27 +6,31 @@ open Gjallarhorn.Bindable
 module Program =
 
     // Create binding for a single tree.  This will output Decorate messages
-    let treeComponent source (model : ISignal<Tree>) =
-        // Bind the tree itself to the view
-        model |> Binding.toView source "Tree"
+    let treeComponent = 
+        (fun source (model : ISignal<Tree>) ->
+            // Bind the tree itself to the view
+            model |> Bind.Explicit.oneWay source "Tree"
 
-        [
-            // Create a command that turns into the Decorate message
-            source |> Binding.createMessage "Decorate" Decorate 
-            source |> Binding.createMessage "Light" Light
-        ]
+            [
+                // Create a command that turns into the Decorate message
+                source |> Bind.Explicit.createMessageCommand "Decorate" Decorate 
+                source |> Bind.Explicit.createMessageCommand "Light" Light
+            ])
+        |> Component.fromExplicit
 
     // Create binding for entire application.  This will output all of our messages.
-    let forestComponent source (model : ISignal<Forest>) =             
-        // Bind our collection to "Forest"
-        let forest = BindingCollection.toView source "Forest" model treeComponent             
+    let forestComponent = 
+        (fun source (model : ISignal<Forest>) ->
+            // Bind our collection to "Forest"
+            let forest = Bind.Collections.oneWay source "Forest" model treeComponent
 
-        [
-            // Map Decorate messages in the treeComponent to UpdateTree messages
-            forest |> Observable.map UpdateTree
-            // Create a command that routes to Add messages
-            source |> Binding.createMessageParam "Add" Add
-        ]
+            [
+                // Map Decorate messages in the treeComponent to UpdateTree messages
+                forest |> Observable.map UpdateTree
+                // Create a command that routes to Add messages
+                source |> Bind.Explicit.createMessageParam "Add" Add
+            ])
+        |> Component.fromExplicit
     
     let application = 
         // Create our forest, wrapped in a mutable with an atomic update function
@@ -59,4 +63,4 @@ module Program =
             pruneForever 10 update |> Async.Start 
 
         // Start our application
-        Framework.application createModel init update forestComponent 
+        Framework.Framework.application createModel init update forestComponent 
