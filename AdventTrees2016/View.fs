@@ -28,4 +28,5 @@ module Main =
     [<EntryPoint>]
     let main _ =  
         // Run using the WPF wrappers around the basic application framework    
-        Gjallarhorn.Wpf.Framework.runApplication System.Windows.Application MainWindow Program.application
+        Gjallarhorn.Wpf.Framework.RunApplication (System.Windows.Application, MainWindow, Program.application)
+        0

@@ -60,36 +60,33 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="FsXaml.Wpf">
-      <HintPath>..\packages\FsXaml.Wpf.2.2.0\lib\net45\FsXaml.Wpf.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FsXaml.Wpf.3.1.6\lib\net45\FsXaml.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="FsXaml.Wpf.Blend">
-      <HintPath>..\packages\FsXaml.Wpf.Blend.2.2.0\lib\net45\FsXaml.Wpf.Blend.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FsXaml.Wpf.Blend.3.1.6\lib\net45\FsXaml.Wpf.Blend.dll</HintPath>
     </Reference>
     <Reference Include="FsXaml.Wpf.TypeProvider">
-      <HintPath>..\packages\FsXaml.Wpf.2.2.0\lib\net45\FsXaml.Wpf.TypeProvider.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FsXaml.Wpf.3.1.6\lib\net45\FsXaml.Wpf.TypeProvider.dll</HintPath>
     </Reference>
     <Reference Include="Gjallarhorn">
-      <HintPath>..\packages\Gjallarhorn.0.0.8-beta\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Gjallarhorn.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Gjallarhorn.1.1.0\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.dll</HintPath>
     </Reference>
     <Reference Include="Gjallarhorn.Bindable">
-      <HintPath>..\packages\Gjallarhorn.Bindable.0.0.8-beta\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Gjallarhorn.Bindable.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Gjallarhorn.Bindable.1.0.0-beta4\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.Bindable.dll</HintPath>
     </Reference>
     <Reference Include="Gjallarhorn.Bindable.Wpf">
-      <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.0.0.8-beta\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Gjallarhorn.Bindable.Wpf.1.0.0-beta4\lib\net45\Gjallarhorn.Bindable.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
