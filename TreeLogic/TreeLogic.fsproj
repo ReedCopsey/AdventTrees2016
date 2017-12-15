@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\portable-net45+netcore45+wpa81+wp8\FSharp.Core.dll</HintPath>
+      <HintPath>..\packages\FSharp.Core.4.1.18\lib\portable-net45+netcore45+wpa81+wp8\FSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="Gjallarhorn">
       <HintPath>..\packages\Gjallarhorn.1.1.0\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.dll</HintPath>
