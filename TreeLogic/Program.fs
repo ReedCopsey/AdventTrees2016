@@ -8,25 +8,27 @@ module Program =
     // "VM" types can be used in XAML designer, and allow simplified component construction
     type TreeVM =
         {
-            Tree     : Tree
-            Decorate : VmCmd<TreeMessage>
-            Light    : VmCmd<TreeMessage>
+            Tree            : Tree
+            Decorate        : VmCmd<TreeMessage>
+            Light           : VmCmd<TreeMessage>
+            DecorateOrLight : VmCmd<TreeMessage>
         }
-    let treeDesign = { Tree = { Position = { X = 0.0 ; Y = 0.0 } ; Height = 1.0 ; Decorated = true ; Lit = true } ; Decorate = Vm.cmd Decorate ; Light = Vm.cmd Light }
+    let treeDesign = { Tree = { Position = { X = 0.0 ; Y = 0.0 } ; Height = 1.0 ; Decorated = true ; Lit = true } ; Decorate = Vm.cmd Decorate ; Light = Vm.cmd Light ; DecorateOrLight = Vm.cmd DecorateOrLight }
 
     type ForestVM =
         {
             Forest     : Forest
             Add        : VmCmd<ForestMessage>            
         }
-    let forestDesign = { Forest = Forest.empty ; Add = Vm.cmd (Add { X = 0.0 ; Y = 0.0 }) }
+    let forestDesign = { Forest = Forest.empty ; Add = Vm.cmd (Add None) }
 
     // Create binding for a single tree.  This will output Decorate and Light messages
     let treeComponent =
         Component.create<Tree,unit,TreeMessage> [
-            <@ treeDesign.Tree @>     |> Bind.oneWay id
-            <@ treeDesign.Decorate @> |> Bind.cmd
-            <@ treeDesign.Light @>    |> Bind.cmd
+            <@ treeDesign.Tree @>            |> Bind.oneWay id
+            <@ treeDesign.Decorate @>        |> Bind.cmd
+            <@ treeDesign.Light @>           |> Bind.cmd
+            <@ treeDesign.DecorateOrLight @> |> Bind.cmd
         ]
 
     // Create binding for entire application.  This will output all of our messages.

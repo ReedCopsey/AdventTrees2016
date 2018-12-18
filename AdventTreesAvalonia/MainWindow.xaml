@@ -13,14 +13,14 @@
         <DataTemplate x:Key="TreeTemplate">
             <Canvas>
                 <i:Interaction.Behaviors>
-                    <ia:EventTriggerBehavior EventName="MouseLeftButtonDown">
+                    <!--<ia:EventTriggerBehavior EventName="PointerPressed">
                         <ia:InvokeCommandAction Command="{Binding Decorate}" />
-                    </ia:EventTriggerBehavior>
-                    <ia:EventTriggerBehavior EventName="MouseRightButtonDown">
-                        <ia:InvokeCommandAction Command="{Binding Light}" />
+                    </ia:EventTriggerBehavior>-->
+                    <ia:EventTriggerBehavior EventName="PointerPressed">
+                        <ia:InvokeCommandAction Command="{Binding DecorateOrLight}" />
                     </ia:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
-                <Path DataContext="{Binding Tree}" Fill="DarkGreen" Stroke="DarkGreen" StrokeThickness="1" Data="M 0 -50 L -15 40 L -2 40 L -2 50 L 2 50 L 2 40 L 15 40 Z" RenderTransformOrigin="0.5,0.5" >
+                <Path ZIndex="1" DataContext="{Binding Tree}" Fill="DarkGreen" Stroke="DarkGreen" StrokeThickness="1" Data="M 0 -50 L -15 40 L -2 40 L -2 50 L 2 50 L 2 40 L 15 40 Z" RenderTransformOrigin="0.5,0.5" >
                     <Path.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="0.15" ScaleY="0.1" />
@@ -29,7 +29,7 @@
                         </TransformGroup>
                     </Path.RenderTransform>
                 </Path>
-                <Path DataContext="{Binding Tree}" Visibility="{Binding Decorated}" Fill="Red" Stroke="Red" StrokeThickness="4" Data="M -6 -30 L 6 -28 M -12 0 L 12 3 M -16 30 L 16 34" RenderTransformOrigin="0.5,0.5" >
+                <Path ZIndex="2" DataContext="{Binding Tree}" IsVisible="{Binding Decorated}" Fill="Red" Stroke="Red" StrokeThickness="4" Data="M -6 -30 L 6 -28 M -12 0 L 12 3 M -16 30 L 16 34" RenderTransformOrigin="0.5,0.5" >
                     <Path.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="0.15" ScaleY="0.1" />
@@ -38,7 +38,7 @@
                         </TransformGroup>
                     </Path.RenderTransform>
                 </Path>
-                <Path Canvas.ZIndex="2" DataContext="{Binding Tree}" Visibility="{Binding Lit}" Fill="White" Stroke="White" StrokeThickness="2"                     
+                <Path ZIndex="3" DataContext="{Binding Tree}" IsVisible="{Binding Lit}" Fill="White" Stroke="White" StrokeThickness="2"                     
                     Data="M 0 -40 L 0 -42 M 2 -30 L 2 -32 M -2 -30 L -2 -32 M 4 -20 L 4 -22 M -4 -20 L -4 -22 M 6 -10 L 6 -12 M -6 -10 L -6 -12 M 4 0 L 4 -2 M -4 0 L -4 -2 M 6 10 L 6 8 
                           M -6 10 L -6 8 M 8 20 L 8 18 M -8 20 L -8 18 M 4 30 L 4 28 M -4 30 L -4 28 M 10 38 L 10 36 M -10 38 L -10 36 M 0 -10 L 0 -8M 0 20 L 0 22
                           M 15 40 L 14 40 M -15 40 L -14 40 M 2 50 L 1 50 M -2 50 L -1 50" RenderTransformOrigin="0.5,0.5" >
@@ -59,7 +59,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center">Click to add a Tree - Left click on a tree to decorate it, right click to light it.</TextBlock>
+        <TextBlock HorizontalAlignment="Center">Click to add a Tree - Click on trees to decorate and light them.</TextBlock>
         <ItemsControl 
             Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
             Items="{Binding Forest}" 
@@ -69,7 +69,7 @@
                 <ItemsPanelTemplate>
                     <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray" ClipToBounds="True" >
                         <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="MouseLeftButtonDown">
+                            <ia:EventTriggerBehavior EventName="PointerPressed">
                                 <ia:InvokeCommandAction Command="{Binding Add}" InputConverter="{StaticResource locationConverter}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>

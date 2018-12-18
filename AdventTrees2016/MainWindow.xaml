@@ -72,7 +72,7 @@
                     <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Gray" ClipToBounds="True" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <fsxb:EventToCommand Command="{Binding Add}" FilterOptionEventArgs="True" EventArgsConverter="{StaticResource locationConverter}"  />
+                                <fsxb:EventToCommand Command="{Binding Add}" EventArgsConverter="{StaticResource locationConverter}"  />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Canvas>

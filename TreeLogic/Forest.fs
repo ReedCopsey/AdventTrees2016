@@ -5,7 +5,7 @@ type Forest = Tree list
 
 // Update types allowed on a forest
 type ForestMessage =
-    | Add of Location // Add new tree at a location
+    | Add of Location option // Add new tree at a location
     | UpdateTree of msg : TreeMessage * tree : Tree // Update an existing tree
     | Prune of maxTrees : int  // Prune the trees
 
@@ -30,6 +30,9 @@ module Forest =
 
     let update msg forest =
         match msg with
-            | Add(location)         -> Tree.create location :: forest    
+            | Add(location)         -> 
+                match location with
+                | Some l -> Tree.create l :: forest    
+                | None   -> forest
             | UpdateTree(msg, tree) -> Tree.update msg tree :: List.except [ tree ] forest
             | Prune(maxTrees)       -> prune maxTrees forest
