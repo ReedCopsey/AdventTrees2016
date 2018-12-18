@@ -1,66 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>e161e48f-190c-4cb2-87fd-65cb0f8e3430</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>TreeLogic</RootNamespace>
-    <AssemblyName>TreeLogic</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
-    <TargetProfile>netcore</TargetProfile>
-    <TargetFSharpCoreVersion>3.259.4.0</TargetFSharpCoreVersion>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>TreeLogic</Name>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\TreeLogic.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <Tailcalls>true</Tailcalls>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\TreeLogic.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">12</MinimumVisualStudioVersion>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets" />
+
   <ItemGroup>
     <Compile Include="Tree.fs" />
     <Compile Include="Forest.fs" />
     <Compile Include="Program.fs" />
-    <Content Include="packages.config" />
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.4.1.18\lib\portable-net45+netcore45+wpa81+wp8\FSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Gjallarhorn">
-      <HintPath>..\packages\Gjallarhorn.1.1.0\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.dll</HintPath>
-    </Reference>
-    <Reference Include="Gjallarhorn.Bindable">
-      <HintPath>..\packages\Gjallarhorn.Bindable.1.0.0-beta5\lib\portable-net45+win8+wp8+wpa81\Gjallarhorn.Bindable.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Gjallarhorn" Version="1.2.3" />
+    <PackageReference Include="Gjallarhorn.Bindable" Version="1.0.0-beta7" />
   </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.3.4" />
+  </ItemGroup>
+
 </Project>
