@@ -20,5 +20,4 @@ let main _ =
     let app' = Program.application nav.Navigate
          
     Gjallarhorn.Avalonia.Framework.RunApplication<Forest,unit,ForestMessage> (nav, app')
-
-    1
+    0
