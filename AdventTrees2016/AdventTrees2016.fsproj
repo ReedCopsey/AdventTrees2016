@@ -87,9 +87,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -107,7 +104,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TreeLogic\TreeLogic.fsproj">
       <Name>TreeLogic</Name>
-      <Project>{4f08950c-f0dd-4a1c-ad00-77de9b179879}</Project>
+      <Project>{5eb8d62c-94c7-431a-b572-ee40a3c93e0e}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
